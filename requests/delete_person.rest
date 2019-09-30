@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/persons/1
+DELETE https://hidden-eyrie-85354.herokuapp.com/api/persons/4

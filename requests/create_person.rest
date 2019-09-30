@@ -1,4 +1,4 @@
-post http://localhost:3001/api/persons
+post https://hidden-eyrie-85354.herokuapp.com/api/persons/
 Content-Type: application/json
 
 {
