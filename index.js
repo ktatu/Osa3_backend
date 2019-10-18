@@ -1,3 +1,6 @@
+require('dotenv').config()
+const Person = require('.models/person')
+
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -48,12 +51,10 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id)
-    const person = persons.find(person => person.id === id)
-    if (person) {
-        res.json(person)
-    } else {
-        res.status(404).end()
-    }
+    //const person = persons.find(person => person.id === id)
+    Person.findById(id).then(person => {
+        res.json(person.toJSON())
+    })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
@@ -79,15 +80,15 @@ app.post('/api/persons', (req, res) => {
 
     console.log("body:",body);
 
-    const person = {
+    const person = new Person({
         name: body.name,
         number: body.number,
-        id: generateId()
-    }
+    })
 
-    persons = persons.concat(person)
-
-    res.json(person)
+    person.save().then(savedPerson => {
+        persons = persons.concat(savedPerson.toJSON())
+        res.json(savedPerson.toJSON())
+    })
 })
 
 const generateId = () => Math.floor(Math.random() * (1000000 - 1)) + 1
