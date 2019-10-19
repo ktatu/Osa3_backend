@@ -1,15 +1,14 @@
 const express = require('express')
 const app = express()
-
 require('dotenv').config()
+const bodyParser = require('body-parser')
+
 const Person = require('./models/person')
 
-const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const cors = require('cors')
 
 app.use(bodyParser.json())
-
+const cors = require('cors')
 
 app.use(morgan('tiny'))
 app.use(cors())
